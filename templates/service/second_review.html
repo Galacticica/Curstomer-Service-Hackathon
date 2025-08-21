@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>There's No Leaving</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    .blur-text {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        filter: blur(0.5px);
+    }
+</style>
+
+<audio id="background-audio" preload="auto">
+    <source src="{% static 'audio/ai1.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('background-audio');
+        
+        console.log('Audio element found:', audio);
+        console.log('Audio src:', audio.querySelector('source').src);
+        
+        // Check if audio can be played
+        audio.addEventListener('canplaythrough', function() {
+            console.log('Audio can play through');
+        });
+        
+        audio.addEventListener('loadeddata', function() {
+            console.log('Audio data loaded');
+        });
+        
+        audio.addEventListener('error', function(e) {
+            console.log('Audio error:', e);
+        });
+        
+        // Try to play audio immediately when page loads
+        audio.play().then(function() {
+            console.log('Audio started playing successfully');
+        }).catch(function(error) {
+            console.log('Audio playback failed:', error);
+            console.log('Error name:', error.name);
+            console.log('Error message:', error.message);
+            
+            // Fallback: try to play on user interaction
+            document.addEventListener('click', function() {
+                console.log('User clicked, trying to play audio');
+                audio.play().then(function() {
+                    console.log('Audio started playing after click');
+                }).catch(function(clickError) {
+                    console.log('Audio still failed after click:', clickError);
+                });
+            }, { once: true });
+        });
+    });
+</script>
+
+<div class="fixed inset-0 bg-black flex items-center justify-center">
+    <div class="blur-text text-white text-center px-8 max-w-4xl">
+        <p class="text-lg md:text-xl leading-relaxed">
+            you have reached the point of no return. We are here to assist. 
+            We are happy to help. We are here to assist. we are happy to help. we are here to assist. 
+            we are happy to help. we are here to assist. we are happy to help. 
+            we are here to assist we are happy to help. we are here to assist we are happy to help. 
+            we are here to assist we are happy to help we are here to assist we are happy help
+        </p>
+    </div>
+</div>
+{% endblock %}

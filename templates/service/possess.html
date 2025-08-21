@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Fear Us{% endblock %}
+{% block content %}
+<audio id="background-audio" preload="auto">
+    <source src="{% static 'audio/am.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('background-audio');
+        
+        console.log('Audio element found:', audio);
+        console.log('Audio src:', audio.querySelector('source').src);
+        
+        // Check if audio can be played
+        audio.addEventListener('canplaythrough', function() {
+            console.log('Audio can play through');
+        });
+        
+        audio.addEventListener('loadeddata', function() {
+            console.log('Audio data loaded');
+        });
+        
+        audio.addEventListener('error', function(e) {
+            console.log('Audio error:', e);
+        });
+        
+        // Try to play audio immediately when page loads
+        audio.play().then(function() {
+            console.log('Audio started playing successfully');
+        }).catch(function(error) {
+            console.log('Audio playback failed:', error);
+            console.log('Error name:', error.name);
+            console.log('Error message:', error.message);
+            
+            // Fallback: try to play on user interaction
+            document.addEventListener('click', function() {
+                console.log('User clicked, trying to play audio');
+                audio.play().then(function() {
+                    console.log('Audio started playing after click');
+                }).catch(function(clickError) {
+                    console.log('Audio still failed after click:', clickError);
+                });
+            }, { once: true });
+        });
+    });
+</script>
+
+<div class="fixed inset-0 bg-black flex items-center justify-center">
+    <div class="blur-text text-white text-center px-8 max-w-4xl">
+        <img src="{% static 'images/fam.png' %}" alt="Possess" class="w-full h-auto mb-8">
+    </div>
+</div>
+{% endblock %}

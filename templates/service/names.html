@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Or Do They{% endblock %}
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    .blur-text {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        filter: blur(0.5px);
+    }
+</style>
+
+<div class="fixed inset-0 bg-black flex items-center justify-center">
+    <div class="blur-text text-white text-center px-8 max-w-4xl">
+        <p class="text-lg md:text-xl leading-relaxed">
+            we know where you live, we know who you are, we are in contact with your loved ones. we are monitoring your every move. we know your name. we have your name. they know your name. They are coming. we are coming. you are us and we are you. we see. we know. we are power. there is power in names.
+        </p>
+    </div>
+</div>
+{% endblock %}

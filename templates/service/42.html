@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Goodbye</title>
+{% endblock %}
+{% block content %}
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    .pdf-container {
+        width: 100vw;
+        height: 100vh;
+    }
+    .pdf-embed {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
+
+<!-- PDF Display Options - Choose one method below -->
+
+<!-- Method 1: Embed tag (works well in most browsers) -->
+<div class="pdf-container">
+    <embed src="{% static 'pdf/gov.pdf' %}" 
+           type="application/pdf" 
+           class="pdf-embed">
+</div>
+
+<!-- Method 2: iframe (alternative if embed doesn't work) -->
+<!--
+<div class="pdf-container">
+    <iframe src="{% static 'pdf/your-document.pdf' %}" 
+            class="pdf-embed"
+            title="PDF Document">
+    </iframe>
+</div>
+-->
+
+<!-- Method 3: Auto-open in new tab/window -->
+<!--
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.open('{% static "pdf/your-document.pdf" %}', '_blank');
+    });
+</script>
+<div class="pdf-container" style="display: flex; align-items: center; justify-content: center; background-color: #f0f0f0;">
+    <p>PDF is opening in a new tab. If it doesn't open automatically, 
+       <a href="{% static 'pdf/your-document.pdf' %}" target="_blank">click here</a>.
+    </p>
+</div>
+-->
+
+{% endblock %}
